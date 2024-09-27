@@ -12,11 +12,14 @@
 
 <body>
     <header>
-        <!-- Barra de Navegación siempre en la parte superior de la ventana.  -->
-        <!-- Debería tener 3 opciones: Mi Perfil (/home.html), Buscar (/market.html), Salir (/logout.html)  -->
         <nav>
-
+            <ul>
+                <li><a href="home.html">Mi Perfil</a></li>
+                <li><a href="market.html">Buscar</a></li>
+                <li><a href="logout.html">Salir</a></li>
+            </ul>
         </nav>
+        
     </header>
     <main class="d-flex justify-content-center align-items-center">
         <!-- Si es que NO existe un state en LocalStorage (user), mostrar el formulario de registro / ingreso -->
@@ -33,6 +36,24 @@
                         <div class="accordion-body">
                             <h2>Regístrate</h2>
                             <!-- Formulario de Registro -->
+                            <form id="signupForm">
+                                <div class="mb-3">
+                                    <label for="signupName" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="signupName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="signupEmail" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="signupEmail" required>
+                                </div>
+                                <div class="mb-3"></div>
+                                    <label for="celular" class="form-label">Celular</label>
+                                    <input type="celular" class="form-control" id="Celular" required>
+                                </div>
+                               
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
@@ -47,6 +68,13 @@
                         <div class="accordion-body">
                             <h2>Ingresa con tu correo</h2>
                             <!-- Formulario de Ingreso (Login) -->
+                            <form id="loginForm">                                
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="signupEmail" required>
+                                </div>                                
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -60,6 +88,11 @@
 
     <footer>
         <!-- Una lista de los integrantes de tu equipo -->
+         <ul>
+            <li>Matias Carrillo</li>            
+            <li>Walther Alcocer</li>
+         </ul>
+
     </footer>
 
     <!-- No borrar: -->
