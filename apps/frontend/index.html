@@ -16,7 +16,7 @@
             <ul>
                 <li><a href="home.html">Mi Perfil</a></li>
                 <li><a href="market.html">Buscar</a></li>
-                <li><a href="logout.html">Salir</a></li>
+                <li><a href="logout.html" id="logoutButton">Salir</a></li>
             </ul>
         </nav>
         
@@ -64,14 +64,14 @@
                             Ingreso
                         </button>
                     </h2>
-                    <div id="loginForm" class="accordion-collapse collapse" data-bs-parent="#signin">
+                    <div id="loginForm" class="accordion-collapse collapse" data-bs-parent="#login">
                         <div class="accordion-body">
                             <h2>Ingresa con tu correo</h2>
                             <!-- Formulario de Ingreso (Login) -->
                             <form id="loginForm">                                
                                 <div class="mb-3">
                                     <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="signupEmail" required>
+                                    <input type="email" class="form-control" id="loginEmail" required>
                                 </div>                                
                                 <button type="submit" class="btn btn-primary">Registrar</button>
                             </form>
