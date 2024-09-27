@@ -3,12 +3,12 @@ const router = express.Router();
 const User = require('../models/User'); 
 
 router.post('/', async (req, res) => {
-    const { email, fullname } = req.body;
+    const { email, fullname , phone }   = req.body; 
 
     try {
         let user = await User.findOne({ email });
         if (!user) {
-            user = new User({ email, fullname });
+            user = new User({ email, fullname , phone});
             await user.save();
         }
         res.status(200).json({ id: user._id });

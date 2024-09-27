@@ -1,11 +1,35 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade Skills</title>
 </head>
+
 <body>
-     <script src="app.js"></script>
+    <script src="app.js"></script>
+    <script>
+        async function fetchUser() {
+            const params = new URLSearchParams(window.location.search);
+            const userId = params.get('id');
+            if (userId) {
+
+                const res = await fetch(`${BACKEND_URL}/user?id=${userId}`);
+                const jsonData = await res.json();
+
+                if (jsonData.user) {
+                    console.log(jsonData.user);
+                    updateUserInState(jsonData.user);
+                    window.location.href = "./index.html";
+                } else {
+                    console.log("No user found");
+                }
+            }
+        }
+        fetchUser();
+    </script>
 </body>
+
 </html>

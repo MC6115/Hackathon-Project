@@ -18,13 +18,16 @@ app.post("/user", async (request, response) => {
     const { email, fullname, phone } = request.body;
 
     try {
+        console.log("Checking for user with email:", email);
         let user = await User.findOne({ email });
-		console.log(user)
+
         if (!user) {
             user = new User({ email, fullname, phone });
             await user.save();
+            return response.status(201).json({ user });
+        } else {
+            return response.status(409).json({ user });
         }
-        response.status(200).json({ user });
     } catch (error) {
         console.error("Error handling user creation or retrieval:", error);
         response.status(500).json({ message: "Internal Server Error" });
@@ -39,7 +42,7 @@ app.post("/skill", async (request, response) => {
 		if (!user) {
 			return response.status(404).json({ message: "Usuario no encontrado." });
 		}
-
+		console.log(userId,skill)
 		user.skills.push(skill);
 		await user.save();
 
@@ -51,29 +54,28 @@ app.post("/skill", async (request, response) => {
 });
 
 app.get("/user", async (request, response) => {
-	const { email } = request.query; 
+    const { id } = request.query;
 
-	try {
-		const user = await User.findOne({email: email});
-		if (!user) {
-			return response.status(404).json({ message: "Usuario no encontrado." });
-		}
-		response.json({ user });
-	} catch (error) {
-		console.error("Error retrieving user:", error);
-		response.status(500).json({ message: "Internal Server Error" });
-	}
-});
-
-app.get("/users", async (request, response) => {
     try {
-        const users = await User.find({}, { email: 1, name: 1, phone: 1, skills: 1 }); 
-
-        response.json({ data: users, message: "Usuarios y skills." });
+        const user = await User.findById(id);
+        if (!user) {
+            return response.status(404).json({ message: "Usuario no encontrado." });
+        }
+        response.json({ user });
     } catch (error) {
-        console.error("Error retrieving users:", error);
+        console.error("Error retrieving user:", error);
         response.status(500).json({ message: "Internal Server Error" });
     }
+});
+app.get("/users", async (request, response) => {
+	try {
+		const users = await User.find({}, { _id: 1, email: 1, fullname: 1, phone: 1, skills: 1 });// 
+
+		response.json({ data: users, message: "Usuarios y skills." });
+	} catch (error) {
+		console.error("Error retrieving users:", error);
+		response.status(500).json({ message: "Internal Server Error" });
+	}
 });
 
 app.listen(PORT, () => console.log("Listening on PORT", PORT));
