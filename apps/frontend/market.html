@@ -12,8 +12,6 @@
 
 <body>
     <header>
-        <!-- Barra de Navegación siempre en la parte superior de la ventana.  -->
-        <!-- Debería tener 3 opciones: Mi Perfil (/home.html), Buscar (/market.html), Salir (/logout.html)  -->
         <nav>
             <ul>
                 <li><a href="home.html">Mi Perfil</a></li>
@@ -23,23 +21,9 @@
         </nav>
     </header>
     <main>
-        <!-- Si es que NO existe un state en LocalStorage (user), deberías enviarlo a la ruta /index.html -->
-
-        <!-- Si es que existe un state en LocalStorage (user) deberías mostrar la lista de los usuarios con sus habilidades -->
-        <!-- En esta lista, se deben mostrar: Nombre, Correo, Celular y Habilidades[] -->
-        
         <h2 class="mb-4">Usuarios Disponibles</h2>
         <ol class="list-group list-group-numbered" id="userList">
         </ol>
-
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Subheading</div>
-              Content for list item
-            </div>
-            <span class="badge text-bg-primary rounded-pill">14</span>
-          </li>
-
     </main>
 
     <footer>
