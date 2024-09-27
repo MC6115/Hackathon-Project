@@ -15,7 +15,11 @@
         <!-- Barra de Navegación siempre en la parte superior de la ventana.  -->
         <!-- Debería tener 3 opciones: Mi Perfil (/home.html), Buscar (/market.html), Salir (/logout.html)  -->
         <nav>
-
+            <ul>
+                <li><a href="home.html">Mi Perfil</a></li>
+                <li><a href="market.html">Buscar</a></li>
+                <li><a href="logout.html">Salir</a></li>
+            </ul>
         </nav>
     </header>
     <main>
@@ -23,15 +27,29 @@
 
         <!-- Si es que existe un state en LocalStorage (user) deberías mostrar un pequeño dashboard del usuario y sus habilidades -->
         <!-- También debería haber un formulario para agregar una nueva habilidad -->
+        <form id="skillForm">
+
+            <div class="mb-3">
+                <label for="newSkills" class="form-label">Nueva Habilidad</label>
+                <input type="text" class="form-control" id="newSkill" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
 
     </main>
 
     <footer>
-        <!-- Una lista de los integrantes de tu equipo -->
+        <ul>
+            <li>Matias Carrillo</li>            
+            <li>Walther Alcocer</li>
+         </ul>
+
     </footer>
 
     <!-- No borrar: -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 

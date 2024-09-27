@@ -15,23 +15,35 @@
         <!-- Barra de Navegación siempre en la parte superior de la ventana.  -->
         <!-- Debería tener 3 opciones: Mi Perfil (/home.html), Buscar (/market.html), Salir (/logout.html)  -->
         <nav>
-
+            <ul>
+                <li><a href="home.html">Mi Perfil</a></li>
+                <li><a href="market.html">Buscar</a></li>
+                <li><a href="logout.html">Salir</a></li>
+            </ul>
         </nav>
     </header>
     <main>
         <!-- Si es que NO existe un state en LocalStorage (user), deberías enviarlo a la ruta /index.html -->
 
         <!-- Si es que existe un state en LocalStorage (user) deberías mostrar la lista de los usuarios con sus habilidades -->
-         <!-- En esta lista, se deben mostrar: Nombre, Correo, Celular y Habilidades[] -->
-
+        <!-- En esta lista, se deben mostrar: Nombre, Correo, Celular y Habilidades[] -->
+        
+        <h2 class="mb-4">Usuarios Disponibles</h2> <div id="userList" class="list-group"></div>
+    
     </main>
 
     <footer>
-        <!-- Una lista de los integrantes de tu equipo -->
+        <ul>
+            <li>Matias Carrillo</li>
+            <li>Walther Alcocer</li>
+        </ul>
+
     </footer>
 
     <!-- No borrar: -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 
