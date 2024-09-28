@@ -131,12 +131,14 @@ if (document.getElementById("userList")) {
 
 				const skillsList = document.createElement("ul");
 				skillsList.classList.add('list-group');
-				user.skills.forEach(skills => {
-					const skillItem = document.createElement("li")
-					skillItem.classList.add('list-group-item')
-					skillItem.textContent = skills;
-					skillsList.appendChild(skillItem);
-				})
+				if(user.skills){
+					user.skills.forEach(skills => {
+						const skillItem = document.createElement("li")
+						skillItem.classList.add('list-group-item')
+						skillItem.textContent = skills;
+						skillsList.appendChild(skillItem);
+					})
+				}
 
 				const badge = document.createElement("span");
 				badge.classList.add('badge', 'text-bg-primary');
