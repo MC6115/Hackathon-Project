@@ -114,7 +114,6 @@ if (logoutButton) {
 	logoutButton.addEventListener("click", function () {
 		localStorage.removeItem(LS_KEY);
 		state = { user: {} };
-		window.location.href = `${FRONTEND_URL}/index.html`;
 	});
 }
 
@@ -139,11 +138,12 @@ if (document.getElementById("userList")) {
 				const skillsList = document.createElement("ul");
 				skillsList.classList.add('list-group');
 				if (user.skills) {
+					console.log(user.skills)
 					user.skills.forEach(skills => {
 						const skillItem = document.createElement("li")
 						skillItem.classList.add('list-group-item')
-						skillItem.textContent = skills;
-						skillsList.appendChild(skillItem);
+						skillItem.textContent = `Skill: ${skills.name} ; Nivel: ${skills.level}`;
+						skillsList.appendChild(skillItem)
 					})
 				}
 
@@ -154,7 +154,7 @@ if (document.getElementById("userList")) {
 				userContent.appendChild(userBold);
 				userItem.appendChild(userContent);
 				userItem.appendChild(badge);
-				userItem.appendChild(skillsList);
+				userBold.appendChild(skillsList);
 
 				userList.appendChild(userItem);
 			})
