@@ -36,13 +36,22 @@ app.post("/user", async (request, response) => {
 app.post("/skill", async (request, response) => {
 	const { userId, skill } = request.body;
 
+	if (!skill.name || !skill.level) {
+		return response.status(400).json({ message: "Skill must include name and level." });
+	}
+
 	try {
 		let user = await User.findById(userId);
 		if (!user) {
 			return response.status(404).json({ message: "Usuario no encontrado." });
 		}
-		console.log(userId,skill)
-		user.skills.push(skill);
+		console.log(userId, skill);
+
+		user.skills.push({
+			name: skill.name,
+			level: skill.level
+		});
+
 		await user.save();
 
 		response.json({ message: "Nuevo skill agregado.", user });
