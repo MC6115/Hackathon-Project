@@ -220,3 +220,20 @@ const addSkill = async (skill) => {
         alert("Error en la solicitud. Inténtalo de nuevo.");
     });
 };
+
+// my profile
+
+document.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem(LS_KEY));
+
+    if (user) {
+        document.getElementById('userName').textContent = `Bienvenido, ${user.user.fullname}`;
+
+        const skillsList = document.getElementById('skillsList');
+        user.user.skills.forEach(skill => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${skill.name} - Nivel: ${skill.level}`;
+            skillsList.appendChild(listItem);
+        });
+    }
+});
