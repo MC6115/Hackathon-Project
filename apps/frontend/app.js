@@ -1,5 +1,5 @@
 const LS_KEY = "trade.skills";
-const BACKEND_URL = "http://localhost:3001"; 
+const BACKEND_URL = "https://hackathon-project-three-jet.vercel.app"; 
 
 // state to use with local storage
 let state;
@@ -50,7 +50,7 @@ if (registerForm) {
         const fullname = document.getElementById("signupName").value;
         const phone = document.getElementById("Celular").value;
 
-        fetch("http://localhost:3001/user", {
+        fetch("https://hackathon-project-three-jet.vercel.app/user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +78,7 @@ if (loginForm) {
 		event.preventDefault();
 		const email = document.getElementById("loginEmail").value;
 
-		fetch("http://localhost:3001/user", {
+		fetch("https://hackathon-project-three-jet.vercel.app/user", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -114,7 +114,7 @@ if (logoutButton) {
 // Load users for market.html
 
 if (document.getElementById("userList")) {
-	fetch("http://localhost:3001/users")
+	fetch("https://hackathon-project-three-jet.vercel.app/users")
 		.then(response => response.json())
 		.then(data => {
 			const userList = document.getElementById("userList");
@@ -183,7 +183,7 @@ const addSkill = async (newSkill) => {
     const userId = user.user._id;
 	console.log(user,userId)
 
-    fetch("http://localhost:3001/skill", {
+    fetch("https://hackathon-project-three-jet.vercel.app/skill", {
         method: 'POST',
         headers: {	
             'Content-Type': 'application/json'
