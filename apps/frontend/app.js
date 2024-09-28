@@ -164,56 +164,59 @@ if (document.getElementById("userList")) {
 }
 
 // new skill handler
+
 if (document.getElementById('skillForm')) {
-	document.getElementById('skillForm').addEventListener('submit', (event) => {
-		event.preventDefault();
+    document.getElementById('skillForm').addEventListener('submit', (event) => {
+        event.preventDefault();
 
-		const newSkill = document.getElementById('newSkill').value;
+        const newSkill = document.getElementById('newSkill').value;
+        const skillLevel = document.getElementById('skillLevel').value;
 
-		if (newSkill) {
-			addSkill(newSkill)
-				.then(() => {
-					document.getElementById('newSkill').value = '';
-				})
-				.catch(error => {
-					console.log("Hubo un error:", error);
-					alert("Error al agregar la habilidad.");
-				});
-		} else {
-			alert("Por favor, ingrese una habilidad.");
-		}
-	});
+        if (newSkill && skillLevel) {
+            addSkill({ name: newSkill, level: skillLevel })
+                .then(() => {
+                    document.getElementById('newSkill').value = '';
+                    document.getElementById('skillLevel').value = '';
+                })
+                .catch(error => {
+                    console.log("Hubo un error:", error);
+                    alert("Error al agregar la habilidad.");
+                });
+        } else {
+            alert("Por favor, ingrese una habilidad y un nivel.");
+        }
+    });
 }
 
-const addSkill = async (newSkill) => {
-	const user = JSON.parse(localStorage.getItem('trade.skills'));
-	const userId = user.user._id;
-	console.log(user, userId)
+const addSkill = async (skill) => {
+    const user = JSON.parse(localStorage.getItem('trade.skills'));
+    const userId = user.user._id;
+    console.log(user, userId);
 
-	fetch(`${BACKEND_URL}/skill`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			userId: userId,
-			skill: newSkill
-		})
-	})
-		.then(response => response.json())
-		.then(data => {
-			if (data.user) {
-				localStorage.setItem('trade.skills', JSON.stringify(data.user));
+    fetch(`${BACKEND_URL}/skill`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId,
+            skill: skill
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.user) {
+            localStorage.setItem('trade.skills', JSON.stringify(data.user));
 
-				updateUserInState(data.user);
+            updateUserInState(data.user);
 
-				window.location.href = `${FRONTEND_URL}/auth.html?id=${data.user._id}`;//
-			} else {
-				alert("Error al agregar el skill.");
-			}
-		})
-		.catch(error => {
-			console.log("Hubo un error:", error);
-			alert("Error en la solicitud. Inténtalo de nuevo.");
-		});
+            window.location.href = `${FRONTEND_URL}/auth.html?id=${data.user._id}`;
+        } else {
+            alert("Error al agregar el skill.");
+        }
+    })
+    .catch(error => {
+        console.log("Hubo un error:", error);
+        alert("Error en la solicitud. Inténtalo de nuevo.");
+    });
 };
