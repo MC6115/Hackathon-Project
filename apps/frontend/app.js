@@ -1,5 +1,12 @@
 const LS_KEY = "trade.skills";
-const BACKEND_URL = "https://hackathon-project-three-jet.vercel.app"; 
+const BACKEND_URL = "https://hackathon-project-three-jet.vercel.app";
+const FRONTEND_URL = "https://mc6115.github.io/Hackathon-Project/apps/frontend";
+
+// links
+
+document.getElementById('profileLink').href = `${FRONTEND_URL}/home.html`;
+document.getElementById('marketLink').href = `${FRONTEND_URL}/market.html`;
+document.getElementById('logoutButton').href = `${FRONTEND_URL}/logout.html`;
 
 // state to use with local storage
 let state;
@@ -23,11 +30,11 @@ function pageLoad() {
 	const currentPage = window.location.pathname;
 
 	if (state && currentPage.includes("index")) {
-		window.location.href = "/apps/frontend/home.html";
+		window.location.href = `${FRONTEND_URL}/home.html`;
 	} else if (!state && currentPage.includes("auth")) {
 		return;
 	} else if (!state && !currentPage.includes("index")) {
-		window.location.href = "/apps/frontend/index.html";
+		window.location.href = `${FRONTEND_URL}/index.html`;
 	}
 }
 
@@ -44,30 +51,30 @@ function updateUserInState(newUser) {
 
 const registerForm = document.getElementById("signupForm");
 if (registerForm) {
-    registerForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const email = document.getElementById("signupEmail").value;
-        const fullname = document.getElementById("signupName").value;
-        const phone = document.getElementById("Celular").value;
+	registerForm.addEventListener("submit", function (event) {
+		event.preventDefault();
+		const email = document.getElementById("signupEmail").value;
+		const fullname = document.getElementById("signupName").value;
+		const phone = document.getElementById("Celular").value;
 
-        fetch("https://hackathon-project-three-jet.vercel.app/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, fullname, phone }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.user) {
-                    updateUserInState(data.user);
-                    window.location.href = `./auth.html?id=${data.user._id}`;
-                } else {
-                    alert("Error en el registro");
-                }
-            })
-            .catch(error => console.log("Hubo un error: ", error));
-    });
+		fetch(`${BACKEND_URL}/user`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ email, fullname, phone }),
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.user) {
+					updateUserInState(data.user);
+					window.location.href = `${FRONTEND_URL}/auth.html?id=${data.user._id}`;
+				} else {
+					alert("Error en el registro");
+				}
+			})
+			.catch(error => console.log("Hubo un error: ", error));
+	});
 }
 
 // Handle login
@@ -78,7 +85,7 @@ if (loginForm) {
 		event.preventDefault();
 		const email = document.getElementById("loginEmail").value;
 
-		fetch("https://hackathon-project-three-jet.vercel.app/user", {
+		fetch(`${BACKEND_URL}/user`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -89,7 +96,7 @@ if (loginForm) {
 			.then(data => {
 				if (data.user) {
 					updateUserInState(data.user);
-					window.location.href = `./auth.html?id=${data.user._id}`
+					window.location.href = `${FRONTEND_URL}/auth.html?id=${data.user._id}`
 				} else {
 					alert("Error en al ingresar")
 				}
@@ -107,14 +114,14 @@ if (logoutButton) {
 	logoutButton.addEventListener("click", function () {
 		localStorage.removeItem(LS_KEY);
 		state = { user: {} };
-		window.location.href = "./index.html";
+		window.location.href = `${FRONTEND_URL}/index.html`;
 	});
 }
 
 // Load users for market.html
 
 if (document.getElementById("userList")) {
-	fetch("https://hackathon-project-three-jet.vercel.app/users")
+	fetch(`${BACKEND_URL}/users`)
 		.then(response => response.json())
 		.then(data => {
 			const userList = document.getElementById("userList");
@@ -131,7 +138,7 @@ if (document.getElementById("userList")) {
 
 				const skillsList = document.createElement("ul");
 				skillsList.classList.add('list-group');
-				if(user.skills){
+				if (user.skills) {
 					user.skills.forEach(skills => {
 						const skillItem = document.createElement("li")
 						skillItem.classList.add('list-group-item')
@@ -157,56 +164,56 @@ if (document.getElementById("userList")) {
 }
 
 // new skill handler
-if(document.getElementById('skillForm')){
-document.getElementById('skillForm').addEventListener('submit', (event) => {
-    event.preventDefault();
+if (document.getElementById('skillForm')) {
+	document.getElementById('skillForm').addEventListener('submit', (event) => {
+		event.preventDefault();
 
-    const newSkill = document.getElementById('newSkill').value;
+		const newSkill = document.getElementById('newSkill').value;
 
-    if (newSkill) {
-        addSkill(newSkill)
-            .then(() => {
-                document.getElementById('newSkill').value = '';
-            })
-            .catch(error => {
-                console.log("Hubo un error:", error);
-                alert("Error al agregar la habilidad.");
-            });
-    } else {
-        alert("Por favor, ingrese una habilidad.");
-    }
-});
+		if (newSkill) {
+			addSkill(newSkill)
+				.then(() => {
+					document.getElementById('newSkill').value = '';
+				})
+				.catch(error => {
+					console.log("Hubo un error:", error);
+					alert("Error al agregar la habilidad.");
+				});
+		} else {
+			alert("Por favor, ingrese una habilidad.");
+		}
+	});
 }
 
 const addSkill = async (newSkill) => {
-    const user = JSON.parse(localStorage.getItem('trade.skills'));
-    const userId = user.user._id;
-	console.log(user,userId)
+	const user = JSON.parse(localStorage.getItem('trade.skills'));
+	const userId = user.user._id;
+	console.log(user, userId)
 
-    fetch("https://hackathon-project-three-jet.vercel.app/skill", {
-        method: 'POST',
-        headers: {	
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            userId: userId,
-            skill: newSkill
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.user) {
-            localStorage.setItem('trade.skills', JSON.stringify(data.user));
+	fetch(`${BACKEND_URL}/skill`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			userId: userId,
+			skill: newSkill
+		})
+	})
+		.then(response => response.json())
+		.then(data => {
+			if (data.user) {
+				localStorage.setItem('trade.skills', JSON.stringify(data.user));
 
-            updateUserInState(data.user);
+				updateUserInState(data.user);
 
-            window.location.href = `./auth.html?id=${data.user._id}`;//
-        } else {
-            alert("Error al agregar el skill.");
-        }
-    })
-    .catch(error => {
-        console.log("Hubo un error:", error);
-        alert("Error en la solicitud. Inténtalo de nuevo.");
-    });
+				window.location.href = `${FRONTEND_URL}/auth.html?id=${data.user._id}`;//
+			} else {
+				alert("Error al agregar el skill.");
+			}
+		})
+		.catch(error => {
+			console.log("Hubo un error:", error);
+			alert("Error en la solicitud. Inténtalo de nuevo.");
+		});
 };

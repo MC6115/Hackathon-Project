@@ -22,7 +22,7 @@
                 if (jsonData.user) {
                     console.log(jsonData.user);
                     updateUserInState(jsonData.user);
-                    window.location.href = "./index.html";
+                    window.location.href = `${FRONTEND_URL}/index.html`;
                 } else {
                     console.log("No user found");
                 }
