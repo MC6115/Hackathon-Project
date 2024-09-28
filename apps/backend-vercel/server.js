@@ -81,3 +81,5 @@ process.on("SIGINT", async () => {
 	await disconnectDB();
 	process.exit(0);
 });
+
+module.exports = app;
